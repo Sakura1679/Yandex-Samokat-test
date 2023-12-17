@@ -1,0 +1,46 @@
+Task 1:
+scooter_rent=# 
+SELECT a.login, 
+       COUNT(b.*) AS orders 
+FROM "Couriers" AS a 
+INNER JOIN "Orders" AS b ON a.id = b."courierId" 
+WHERE b."inDelivery" = TRUE 
+GROUP BY login;
+
+ login  | orders
+--------+--------
+ DeNiro |      2
+ Flash  |      2
+ Gordon |      4
+ Marcel |      2
+(4 rows)
+
+Task 2:
+scooter_rent=# 
+SELECT track, 
+   CASE 
+      WHEN "inDelivery" = TRUE THEN '1' 
+      WHEN cancelled = TRUE THEN '-1' 
+      WHEN finished = TRUE THEN '2' 
+      ELSE '0' 
+   END 
+FROM "Orders";
+
+   track  | case
+--------+------
+ 164975 | 1
+ 164975 | 1
+ 226349 | 1
+ 917126 | 1
+ 917126 | 1
+ 943123 | 1
+ 943123 | 1
+  16148 | 1
+  16148 | 1
+ 820365 | -1
+ 226349 | 1
+ 715170 | 0
+(12 rows)
+
+
+
